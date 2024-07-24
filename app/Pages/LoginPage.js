@@ -1,15 +1,27 @@
-import React, { useEffect } from 'react';
+import React, {useEffect, useState} from 'react';
 import { ScrollView, View, Text, TextInput, Button, Alert, StyleSheet, TouchableOpacity, SafeAreaView, Image } from 'react-native';
 import { Formik } from "formik";
 import * as Yup from 'yup';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import * as LocalAuthentication from 'expo-local-authentication';
 import thumb from "../assets/thumb.png";
 
+
 export default function LoginPage({ navigation }) {
+
+    const [showPassword, setShowPassword] = useState(false);
+
+    const toggleShowPassword = () => {
+        setShowPassword(!showPassword);
+    };
+
+
     const validationSchema = Yup.object().shape({
         phoneNumber: Yup.string().required('Phone number is required'),
         password: Yup.string().required('Password is required'),
     });
+
+
 
     const version = "v1.1.1";
 
@@ -73,12 +85,20 @@ export default function LoginPage({ navigation }) {
                             <TextInput
                                 style={styles.input}
                                 placeholder="Password"
-                                secureTextEntry={true}
+                                secureTextEntry={!showPassword}
                                 onChangeText={handleChange("password")}
                                 onBlur={handleBlur("password")}
                                 value={values.password}
                             />
-                            {touched.password && errors.password ? (
+                            <MaterialCommunityIcons
+                                name={showPassword ? 'eye-off' : 'eye'}
+                                size={24}
+                                color="#aaa"
+                                style={styles.icon}
+                                onPress={toggleShowPassword}
+
+                                />
+                                {touched.password && errors.password ? (
                                 <Text style={styles.error}>{errors.password}</Text>
                             ) : null}
 
@@ -155,17 +175,18 @@ const styles = StyleSheet.create({
         marginTop: 9,
         marginBottom: 5,
         fontSize: 16,
-        backgroundColor: "#e3e3e3",
+        backgroundColor: "#faf7f7",
         alignSelf: "flex-start",
         paddingHorizontal: 1,
         marginStart: 9,
         zIndex: 1,
+        overflow: 'hidden',
         elevation: 1,
-        borderRadius: 6,
-        shadowColor: "#b3b5ba",
-
-        // position: "absolute",
-        top: 18
+        shadowColor: "#9f9f9f",
+        borderWidth: 0.0,
+        borderRadius: 10,
+        borderColor: "#9f9f9f",
+         top: 17
     },
     forgotPassword: {
         marginTop: 25,
@@ -215,4 +236,11 @@ const styles = StyleSheet.create({
     version: {
         color: "#9f9f9f",
     },
+    icon:{
+        position: "absolute",
+        right: 10,
+        height: 80,
+        width: 60,
+
+    }
 });
