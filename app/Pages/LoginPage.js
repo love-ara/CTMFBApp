@@ -43,7 +43,7 @@ export default function LoginPage({ navigation }) {
         });
 
         if (result.success) {
-            navigation.navigate('Home');
+            navigation.navigate('Dashboard');
         } else {
             Alert.alert('Fingerprint Authentication', 'Authentication failed. Please try again or enter your password.');
         }
@@ -57,7 +57,7 @@ export default function LoginPage({ navigation }) {
                     validationSchema={validationSchema}
                     onSubmit={(values, { setSubmitting }) => {
                         setSubmitting(true);
-                        navigation.navigate("Home");
+                        navigation.navigate("Dashboard");
                     }}
                 >
                     {({ handleChange, handleBlur, handleSubmit, values, errors, touched }) => (

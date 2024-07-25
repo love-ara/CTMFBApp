@@ -2,15 +2,20 @@ import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TouchableOpacity, Image, Alert, Button, SafeAreaView, Platform} from 'react-native';
 import {NavigationContainer} from "@react-navigation/native";
 import {createStackNavigator} from "@react-navigation/stack";
-import LoginPage from "./Pages/LoginPage"
-import HomePage from "./Pages/HomePage";
+import LoginPage from "./app/Pages/LoginPage"
+import HomePage from "./app/Pages/HomePage";
+import Home from "./app/Pages/Home";
+
+
+
 export default function App() {
   const Stack = createStackNavigator();
   return (
       <NavigationContainer >
-        <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="Log in" component={LoginPage} />
-          <Stack.Screen name="Home" component={HomePage} />
+        <Stack.Navigator initialRouteName="Dashboard">
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Login" component={LoginPage} />
+          <Stack.Screen name="Dashboard" component={HomePage} />
         </Stack.Navigator>
 
       </NavigationContainer>
